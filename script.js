@@ -36,21 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
-        
-        // Add/remove scrolled class for styling
+
         if (currentScroll > 50) {
+            navbar.classList.add('scrolled');
             navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
         } else {
+            navbar.classList.remove('scrolled');
             navbar.style.boxShadow = 'none';
         }
 
-        // Hide/show navbar on scroll direction (optional)
-        if (currentScroll > lastScroll && currentScroll > 500) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            navbar.style.transform = 'translateY(0)';
-        }
-        
         lastScroll = currentScroll;
     });
 
@@ -161,32 +155,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation function
     function validateForm(data) {
         const errors = [];
-        
-        // Validate required fields
-        if (!data.firstName || data.firstName.trim() === '') {
-            errors.push('First name is required');
+
+        if (!data.name || data.name.trim() === '') {
+            errors.push('Name is required');
         }
-        
-        if (!data.lastName || data.lastName.trim() === '') {
-            errors.push('Last name is required');
-        }
-        
+
         if (!data.email || data.email.trim() === '') {
             errors.push('Email is required');
         } else if (!isValidEmail(data.email)) {
             errors.push('Please enter a valid email address');
         }
-        
-        if (!data.service) {
-            errors.push('Please select a service');
-        }
-        
+
         if (errors.length > 0) {
-            // In a real implementation, you would show these errors in the UI
             console.error('Validation errors:', errors);
             return false;
         }
-        
+
         return true;
     }
 
